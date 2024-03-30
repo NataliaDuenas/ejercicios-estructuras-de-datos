@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import javax.sound.sampled.Line;
+
 public class Main {
     ListaDoblementeEnlazada TextoMalo;
     ListaDoblementeEnlazada TextoTemporal;
@@ -10,10 +12,12 @@ public class Main {
         TextoTemporal = new ListaDoblementeEnlazada();
         TextoMalo.insertarAlInicio(TextoTemporal);
         char accionprevia=']';
+        char home='[';
+        char back=']';
+
         for (int i = 0; i < Linea.length(); i++) {
             char caracter = Linea.charAt(i);
-            char home='[';
-            char back=']';
+
             if ((caracter != home && caracter != back)) {
                 TextoTemporal.insertarAlFinal(caracter);
             } else if(accionprevia==home){
@@ -29,16 +33,30 @@ public class Main {
                 TextoMalo.insertarAlFinal(TextoTemporal);
             }            
         }
-        System.out.println(TextoMalo.toString());
+    }
+    String salida(){
+        return TextoMalo.toString();
     }
 
     public static void main(String[] args) {
        Scanner sc = new Scanner(System.in);
-       String Linea1 = sc.nextLine();
-       new Main(Linea1);
-       String Linea2 = sc.nextLine();
-       new Main(Linea2);
+       String Linea;
+       Linea = sc.nextLine();
+       Main m1 = new Main(Linea);
+       Linea = sc.nextLine();
+       Main m2 = new Main(Linea);
        sc.close();
+       System.out.println(m1.salida());
+       System.out.println(m2.salida());
+       /* String Linea;
+       Textos Main[];
+       while (sc.hasNext() ) {
+            Linea = sc.nextLine();
+            new Main(Linea);
+            
+       
+       } */
+       //
     }
     
     static class Nodo {
