@@ -1,3 +1,5 @@
+package weird_text;
+
 import java.util.Scanner;
 
 import javax.sound.sampled.Line;
@@ -45,16 +47,11 @@ public class Main {
        Scanner sc = new Scanner(System.in);
        String Linea;
        Main texto;
-       Linea = sc.nextLine();
-       Main texto1 =new Main(Linea);
-       Linea = sc.nextLine();
-       Main texto2 =new Main(Linea);
-       System.out.println(texto1.salida());
-       System.out.println(texto2.salida());
-       //String [] salidas = new String [100];
-       /* int contador =0;
+       String [] salidas = new String [100];
+       int contador =0;
        while (sc.hasNext() ) {
-           
+            Linea = sc.nextLine();
+            texto =new Main(Linea);
             salidas[contador] =texto.salida();
             contador ++;      
         }
@@ -62,7 +59,7 @@ public class Main {
        for(int i=0; i<contador; i++){
         System.out.println(salidas[i]);
        
-       } */
+       }
     }
     
     static class Nodo {
