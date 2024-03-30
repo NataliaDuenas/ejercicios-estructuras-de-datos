@@ -41,23 +41,21 @@ public class Main {
     public static void main(String[] args) {
        Scanner sc = new Scanner(System.in);
        String Linea;
-       Linea = sc.nextLine();
-       Main m1 = new Main(Linea);
-       Linea = sc.nextLine();
-       Main m2 = new Main(Linea);
-       sc.close();
-       System.out.println(m1.salida());
-       System.out.println(m2.salida());
-       /* String Linea;
-       Textos Main[];
+       Main texto;
+       String [] salidas = new String [100];
+       int contador =0;
        while (sc.hasNext() ) {
             Linea = sc.nextLine();
-            new Main(Linea);
-            
+            texto =new Main(Linea);
+            salidas[contador] =texto.salida();
+            contador ++;      
+        }
+       sc.close();
+       for(int i=0; i<contador; i++){
+        System.out.println(salidas[i]);
        
-       } */
-       //
-    }
+       }
+           }
     
     static class Nodo {
         char dato;
