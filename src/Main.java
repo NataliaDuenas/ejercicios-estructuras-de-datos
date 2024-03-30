@@ -8,31 +8,34 @@ public class Main {
     String Linea;
 
     Main(String Linea) {
+
+        String[] segmentos = Linea.split( "((?=[\\[\\]])|(?<=[\\[\\]]))",0);
+        String home = "[";
+        String back = "]";
+        String accionprevia = "]";
+        String temporal = "";
+        
         TextoMalo = new ListaDoblementeEnlazada();
-        TextoTemporal = new ListaDoblementeEnlazada();
-        TextoMalo.insertarAlInicio(TextoTemporal);
-        char accionprevia=']';
-        char home='[';
-        char back=']';
 
-        for (int i = 0; i < Linea.length(); i++) {
-            char caracter = Linea.charAt(i);
+        for(String parte: segmentos){
+            if (!parte.equals(home) && !parte.equals(back)) {
+                temporal = parte;
+                //System.out.println("parte " + (parte ));
+                if(accionprevia.equals(home)){
+                    TextoMalo.insertarAlInicio(temporal);
+                    
+                } else if(accionprevia.equals(back)){
+                    TextoMalo.insertarAlFinal(temporal);
+        
+                }
+            } else if(parte.equals(home)){
+                accionprevia = parte;
+                
+            } else if(parte.equals(back)){
+                accionprevia = parte;
 
-            if ((caracter != home && caracter != back)) {
-                TextoTemporal.insertarAlFinal(caracter);
-            } else if(accionprevia==home){
-                TextoMalo.insertarAlInicio(TextoTemporal);
-                TextoTemporal.vaciar();
-                accionprevia=caracter;
-            } else if(accionprevia==back){
-                TextoMalo.insertarAlFinal(TextoTemporal);
-                TextoTemporal.vaciar();
-                accionprevia=caracter;
             }
-            if (i == Linea.length() - 1) {
-                TextoMalo.insertarAlFinal(TextoTemporal);
-            }            
-        }
+        }    
     }
     String salida(){
         return TextoMalo.toString();
@@ -42,11 +45,16 @@ public class Main {
        Scanner sc = new Scanner(System.in);
        String Linea;
        Main texto;
-       String [] salidas = new String [100];
-       int contador =0;
+       Linea = sc.nextLine();
+       Main texto1 =new Main(Linea);
+       Linea = sc.nextLine();
+       Main texto2 =new Main(Linea);
+       System.out.println(texto1.salida());
+       System.out.println(texto2.salida());
+       //String [] salidas = new String [100];
+       /* int contador =0;
        while (sc.hasNext() ) {
-            Linea = sc.nextLine();
-            texto =new Main(Linea);
+           
             salidas[contador] =texto.salida();
             contador ++;      
         }
@@ -54,15 +62,15 @@ public class Main {
        for(int i=0; i<contador; i++){
         System.out.println(salidas[i]);
        
-       }
-           }
+       } */
+    }
     
     static class Nodo {
-        char dato;
+        String dato;
         Nodo siguiente;
         Nodo anterior;
     
-        public Nodo(char dato) {
+        public Nodo(String dato) {
             this.dato = dato;
             this.siguiente = null;
             this.anterior = null;
@@ -109,8 +117,19 @@ public class Main {
                 cola = nuevaLista.cola;
             }
         }
+        public void insertarAlInicio(String dato) {
+            Nodo nuevo = new Nodo(dato);
+            if (estaVacia()) {
+                cabeza = nuevo;
+                cola = nuevo;
+            } else {
+                cabeza.anterior = nuevo;
+                nuevo.siguiente = cabeza;
+                cabeza = nuevo;
+            }
+        }
 
-        public void insertarAlFinal(char dato) {
+        public void insertarAlFinal(String dato) {
             Nodo nuevo = new Nodo(dato);
             if (estaVacia()) {
                 cabeza = nuevo;
